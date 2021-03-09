@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,600,700|Open+Sans:300,400,600,700,800,900" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'style.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/dark.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/swiper.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" />
+
+	<!-- Business Demo Specific Stylesheet -->
+	<link rel="stylesheet" href="{% static 'business/business.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'business/css/fonts.css' %}" type="text/css" />
+	<!-- / -->
+
+	<link rel="stylesheet" href="{% static 'css/font-icons.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css" />
+
+	<link rel="stylesheet" href="{% static 'one-page/css/et-line.css' %}" type="text/css" />
+
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Theme Color
+	============================================= -->
+	<link rel="stylesheet" href="{% static 'business/css/colors.css' %}" type="text/css" />
+
+	<!-- Document Title
+	============================================= -->
+	<title>Country Mechanic</title>
+
+</head>
+
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="transparent-header dark full-header" data-sticky-class="not-dark" data-responsive-class="not-dark" data-sticky-offset="full">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="index.html" class="standard-logo" data-dark-logo="business/images/logo-dark.png">Country Mechanic</a>
+						<a href="index.html" class="retina-logo" data-dark-logo="business/images/logo-dark@2x.png">Country Mechanic</a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu" class="not-dark">
+
+						<ul>
+							{% if user.is_authenticated %}
+                                <li class="active"><a href="index.html"><div>Home</div></a></li>
+                                <li><a href="garage.html"><div>Garage</div></a></li>
+                                <li><a href="#"><div>Tools</div></a></li>
+                                <li><a href="#"><div>Consumables</div></a></li>
+                                <li><a href="#"><div>Profile</div></a></li>
+                                <li><a href="#"><div>Log Out</div></a></li>
+                            {% else %}
+                                <li><a href="#" data-toggle="modal" data-target="#login"><div>Login</div></a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#signup"><div>Signup</div></a></li>
+                            {% endif %}
+							
+						</ul>
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<!-- Slider
+		============================================= -->
+		<section id="slider" class="slider-element slider-parallax swiper_wrapper full-screen clearfix" data-loop="true">
+
+			<div class="slider-parallax-inner">
+				<div class="swiper-container swiper-parent">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide dark" style="background-image: url('static/business/images/slider/car-repair.webp'); background-size: cover">
+							<div class="container clearfix">
+								<div class="slider-caption slider-caption-center">
+									<h2 class="font-primary nott">Country Mechanic</h2>
+									<p class="t300 font-primary d-none d-sm-block">Simplifying maintenance.</p>
+									<a href="#" class="button button-rounded button-large nott ls0 font-primary" data-toggle="modal" data-target="#signup">Sign Up</a>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide dark" style="background-image: url('static/business/images/slider/tractorstorage.jpg'); background-size: cover">
+							<div class="container clearfix">
+								<div class="slider-caption slider-caption-center">
+									<h2 class="font-primary">Stay Current</h2>
+									<p class="t300 font-primary d-none d-sm-block">Keep track of maintenance and receive reminders.</p>
+									<a href="#" class="button button-rounded button-large nott ls0 font-primary">Get Started</a>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide dark" style="background-image: url('static/business/images/slider/tools.jpg'); background-size: cover">
+							<div class="container clearfix">
+								<div class="slider-caption slider-caption-center">
+									<h2 class="font-primary">Stay Organized</h2>
+									<p class="t300 font-primary d-none d-sm-block">Keep track of tools and consumables.</p>
+									<a href="#" class="button button-rounded button-large nott ls0 font-primary">Get Started</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slider Arrows
+					============================================= -->
+					<div class="slider-arrow-left" class="nobg"><i class="icon-line-arrow-left"></i></div>
+					<div class="slider-arrow-right" class="nobg"><i class="icon-line-arrow-right"></i></div>
+				</div>
+
+				<!-- Slider Mouse Icon
+				============================================= -->
+				<a href="#" data-scrollto="#content" data-offset="0" class="dark one-page-arrow"><img class="infinite animated fadeInDown" src="{% static 'business/images/mouse.svg' %}" alt="" ></a>
+			</div>
+
+		</section>
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap nobottompadding" style="z-index: 1;">
+
+				<div class="container topmargin clearfix">
+
+					<!-- What We Do
+					============================================= -->
+					<div class="heading-block center noborder" data-heading="W">
+						<h3>What We Do</h3>
+					</div>
+					<div class="row clearfix">
+						<div class="center col-lg-8 offset-lg-2 bottommargin">
+							<h3 class="text-rotater font-secondary" data-separator="," data-rotate="fadeInRight" data-speed="3500">Rural living can be tough, but tracking the maintenance for your equipment doesn't have to be.  Country Mechanic will track the maintenance for your cars, trucks, ATVs, and tractors, as well as your smaller tools like chainsaws and brush hogs.  Equipment maintenace intervals can be tracked in hours, miles, or months.  Maintenance records can be created at the touch of a button and stored securely in our database.</h3>
+						</div>
+
+						<div class="clear"></div>
+
+						<!-- Features columns
+						============================================= -->
+						<div class="row clearfix">
+							<div class="col-lg-4 bottommargin-sm">
+								<div class="feature-box media-box fbox-bg">
+									<div class="fbox-media">
+										<a href="#"><img class="image_fade" src="{% static 'business/images/slider/tools.jpg' %}" alt="Featured Box Image"></a>
+									</div>
+									<div class="fbox-desc">
+										<h3 class="nott ls0 t600">Tool Storage<span class="subtitle font-secondary t300 ls0">Organized storage for all of your tools in our database.  Easy retrieval for easy addition to any task.</span></h3>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4 bottommargin-sm">
+								<div class="feature-box media-box fbox-bg">
+									<div class="fbox-media">
+										<a href="#"><img class="image_fade" src="{% static 'business/images/featured/consumables.jpeg' %}" alt="Featured Box Image"></a>
+									</div>
+									<div class="fbox-desc">
+										<h3 class="nott ls0 t600">Consumable Storage<span class="subtitle font-secondary t300 ls0">Organized storage for all of your consumables in our database.  Easy retrieval for easy addition to any task.</span></h3>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-lg-4 bottommargin-sm">
+								<div class="feature-box media-box fbox-bg">
+									<div class="fbox-media">
+										<a href="#"><img class="image_fade" src="{% static 'business/images/featured/tractor_storage.jpeg' %}" alt="Featured Box Image"></a>
+									</div>
+									<div class="fbox-desc">
+										<h3 class="nott ls0 t600">Garage<span class="subtitle font-secondary t300 ls0">Park all of your equipment in our garage for safe keeping and keep track of tasks and maintenace records.</span></h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+		<footer id="footer" class="noborder" style="padding: 30px 0; background-color: #FFF">
+
+			<div class="container clearfix">
+
+				<!-- Footer Widgets
+				============================================= -->
+				<div class="footer-widgets-wrap clearfix">
+					<div class="col_full">
+						<div class="col_two_fifth">
+							<div class="widget widget_links clearfix">
+								<h4>Connect</h4>
+								<a href="#">info@countrymechanic.com</a>
+							</div>
+						</div>
+						<div class="col_two_fifth">
+							<div class="widget widget_links clearfix">
+								<h4>Navigate</h4>
+								<ul>
+									<li><a href="#">Home</a></li>
+									<li><a href="#">Login</a></li>
+									<li><a href="#">Sign Up</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<div class="line line-sm"></div>
+						<div class="col_full">
+							<small class="t300" style="color: #AAA">Copyrights &copy; 2021 All Rights Reserved by Country Mechanic.</small>
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+
+		</footer><!-- #footer end -->
+
+		<!-- Login Modal -->
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-body">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">Modal Heading</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<h4>Text in a modal</h4>
+						<p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+						<hr>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- Signup Modal -->
+		<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-body">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Sign Up</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						</div>
+						<form method="POST" action = "{% url 'login_user' %}">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <h4>Text in a modal</h4>
+                                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+                                <hr>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<script src="{% static 'js/plugins.js' %}"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script src="{%static 'js/functions.js' %}"></script>
+
+</body>
+</html>
