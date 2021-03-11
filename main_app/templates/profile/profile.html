@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Profile</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+    </div>
+</section>
+
+<section>
+    <h2>{{ user.first_name}} {{user.last_name}}</h2>
+    <p>Username: {{user.username}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Location: {{profile.location}}</p>
+    <p>Hourly rate:  ${{profile.hourly_rate}}.00</p>
+    <p>Date Joined: {{ user.date_joined }}</p>
+</section>
+
+<section>
+            {% if profile.location == "" %}
+            <p>Oops.  Looks like we are missing some information.  Let's go ahead and add it?</p>
+            <div >
+                
+                <form action="{% url 'profile' %}" method="POST">
+                    {% csrf_token %}
+                    <div >
+                        <div >
+                            <h3 >Location</h3>
+                            <input type="text" name="location" placeholder="USA" >
+                        </div>
+                        <div >
+                            <h3 >Hourly Rate </h3>
+                            <div >
+                                <label  >$</label>
+                                <input type="number" id="amount" name="hourly_rate" value=0>
+                                <div >.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div >
+                        <input  type="submit" value='Add Info'>
+                    </div>
+                </form>
+            {% else %}
+            <div >
+                <a href="{% url 'profile_edit' %}" >Edit Profile</a>
+                <a href="#" >Delete Account</a>
+            </div>
+        </div>    
+        {% endif %}
+    </section>
+
+{% endblock %}

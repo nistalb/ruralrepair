@@ -67,10 +67,16 @@
 					<nav id="primary-menu" class="not-dark">
 
 						<ul>
-							
-                                <li><a href="{% url 'login_user' %}" ><div>Login</div></a></li>
-                                <li><a href="{% url 'login_user' %}" ><div>Signup</div></a></li>
-							
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'garage' %}"><div>Garage</div></a></li>
+                                <li><a href="#"><div>Tools</div></a></li>
+                                <li><a href="#"><div>Consumables</div></a></li>
+                                <li><a href="{% url 'profile' %}"><div>Profile</div></a></li>
+                                <li><a href="{% url 'logout' %}"><div>Log Out</div></a></li>
+                            {% else %}
+                                <li><a href="{% url 'register_user' %}" ><div>Login</div></a></li>
+                                <li><a href="{% url 'register_user' %}" ><div>Signup</div></a></li>
+							{% endif %}
 						</ul>
 
 					</nav><!-- #primary-menu end -->
@@ -93,7 +99,7 @@
 								<div class="slider-caption slider-caption-center">
 									<h2 class="font-primary nott">Country Mechanic</h2>
 									<p class="t300 font-primary d-none d-sm-block">Simplifying maintenance.</p>
-									<a href="{% url 'login_user' %}" class="button button-rounded button-large nott ls0 font-primary" >Sign Up</a>
+									<a href="{% url 'register_user' %}" class="button button-rounded button-large nott ls0 font-primary" >Sign Up</a>
 								</div>
 							</div>
 						</div>
@@ -210,8 +216,8 @@
 								<h4>Navigate</h4>
 								<ul>
 									<li><a href="#">Home</a></li>
-									<li><a href="{% url 'login_user' %}">Login</a></li>
-									<li><a href="{% url 'login_user' %}">Sign Up</a></li>
+									<li><a href="{% url 'register_user' %}">Login</a></li>
+									<li><a href="{% url 'register_user' %}">Sign Up</a></li>
 								</ul>
 							</div>
 						</div>

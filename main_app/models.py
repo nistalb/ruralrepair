@@ -79,7 +79,7 @@ class Task(models.Model):
     video = models.CharField(max_length=400, blank=True)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
     tool = models.ManyToManyField(Tool)
-    consumable = models.ManyToManyField(Consumables)
+    consumable = models.ManyToManyField(Consumable)
 
     def __str__(self):
         return f"{self.task_name}"
