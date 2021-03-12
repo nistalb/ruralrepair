@@ -90,7 +90,21 @@ def garage(request):
 
 # ==== Equipment ====
 def equipment_create(request):
+    if request.method == 'POST':
+        equipment_form = EquipmentForm(request.POST)
+        if equipment_form.is_valid():
+            equipment = equipment_form.save(commit=False)
+            equipment.user = request.user
+            equipment.save()
+            return redirect('equipment_show', equipment_id=equipment.id)
+        else:
+            context = {'error': "Something has gone wrong.  Try Again."}
+            return render(request, 'equipment/create.html', context)
 
     equipment_form = EquipmentForm()
     context = {'equipment_form': equipment_form}
     return render(request, 'equipment/create.html', context)
+
+def equipment_show(request, equipment_id):
+
+    return render(request, 'equipment/show.html')
