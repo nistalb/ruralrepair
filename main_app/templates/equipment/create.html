@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Create Equipment</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'garage' %}">Garage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create Equipment</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix" style="max-width: 900px;">
+
+            <div class="card nobottommargin">
+                <div class="card-body" style="padding: 40px;">
+                    <h3>Equipment Information</h3>
+
+                    <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'equipment_create' %}" method="POST">
+                        {% csrf_token %}
+                        
+                         {% if error %}
+                            <div class="style-msg errormsg">
+							    <div class="sb-msg"><i class="icon-remove"></i><strong>Action Forbidden!</strong> {{error}}</div>
+						    </div>
+                        {% endif %}
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="equipment-form-make">Make:</label>
+                                <input type="text" id="equipment-form-make" name="make" placeholder="Ford" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="equipment-form-model">Model:</label>
+                                <input type="text" id="equipment-form-model" name="model" placeholder="F-250" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="equipment-form-model">Year:</label>
+                                <input type="number" id="equipment-form-model" name="year" placeholder="1976" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="equipment-form-make">Hours/Miles:</label>
+                                <input type="number" id="equipment-form-make" name="age" placeholder="1000" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+								<label for="select">Hours or Miles</label>
+								<select class="form-control" id="select">
+									<option>1</option>
+									<option>2</option>
+								</select>
+							</div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

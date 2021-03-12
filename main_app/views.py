@@ -3,7 +3,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumable, Maint_Record, Photo
@@ -87,3 +87,10 @@ def garage(request):
     equipment = Equipment.objects.filter(user_id=request.user.id)
     context = {'equipment': equipment}
     return render(request, 'garage.html', context)
+
+# ==== Equipment ====
+def equipment_create(request):
+
+    equipment_form = EquipmentForm()
+    context = {'equipment_form': equipment_form}
+    return render(request, 'equipment/create.html', context)

@@ -12,3 +12,8 @@ class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         fields = ('location', 'hourly_rate')
+
+class EquipmentForm(ModelForm):
+    class Meta:
+        model = Equipment
+        fields = ('model', 'make', 'mfg_year', 'description', 'age', 'incrementer', 'cost')
