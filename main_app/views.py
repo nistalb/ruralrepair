@@ -77,6 +77,11 @@ def profile_edit(request):
     context = {'profile_form': profile_form, 'user_form': user_form, 'user': user, 'profile': profile}
     return render(request, 'profile/edit.html', context)
 
+def profile_delete(request):
+    User.objects.get(id=request.user.id).delete()
+    return redirect('home')
+
+
 # ==== Garage ====
 def garage(request):
     equipment = Equipment.objects.filter(user_id=request.user.id)

@@ -1,6 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
 
-hello!
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Edit Profile</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'profile' %}">Profile</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix" style="max-width: 700px;">
+
+            <div class="card nobottommargin">
+                <div class="card-body" style="padding: 40px;">
+                    <h3>Profile Information</h3>
+
+                    <form id="register-form" name="profile-form" class="nobottommargin" action="{% url 'profile_edit' %}" method="POST">
+                        {% csrf_token %}
+                        
+                         {% if error %}
+                            <div class="style-msg errormsg">
+							    <div class="sb-msg"><i class="icon-remove"></i><strong>Action Forbidden!</strong> {{error}}</div>
+						    </div>
+                        {% endif %}
+                        
+                        <div class="col_full">
+                            <label for="profile-form-firstname">First Name:</label>
+                            <input type="text" id="profile-form-firstname" name="first_name" value="{{ user.first_name }}" class="form-control" />
+                        </div>
+
+                        <div class="col_full">
+                            <label for="profile-form-lastname">Last Name:</label>
+                            <input type="text" id="profile-form-lastname" name="last_name" value="{{ user.last_name }}" class="form-control" />
+                        </div>
+                        
+                        <div class="col_full">
+                            <label for="profile-form-email">Email Address:</label>
+                            <input type="email" id="profile-form-email" name="email" value="{{ user.email }}" class="form-control" />
+                        </div>
+
+                        <div class="col_full">
+                            <label for="register-form-username">Username:</label>
+                            <input type="text" id="register-form-username" name="username" value="{{ user.username }}" class="form-control" />
+                        </div>
+
+                        <div class="col_full">
+                            <label for="profile-form-location">Location:</label>
+                            <input type="text" id="profile-form-location" name="location" value="{{ profile.location }}" class="form-control" />
+                        </div>
+
+                        <div class="col_full">
+                            <label for="profile-form-rate">Hourly Rate ($):</label>
+                            <input type="number" id="profile-form-rate" name="hourly_rate" value="{{ profile.hourly_rate }}" class="form-control" />
+                        </div>
+
+                        <div class="col_full nobottommargin">
+                            <button class="button button-3d button-black nomargin" type="submit" value="update">Update</button>
+                            <a href="{% url 'profile' %}" class="button button-3d button-red nomargin">Cancel</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
