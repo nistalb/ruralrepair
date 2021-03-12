@@ -1,6 +1,110 @@
 {% extends 'base.html' %}
 {% block content %}
 
-hello
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>{{ equipment.make }} {{ equipment.model }}</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'garage' %}">Garage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ equipment.make }} {{ equipment.model }}</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+            <div class="col_one_fourth">
+                {% for photo in equipment.photo_set.all %}
+                    <img class="profile-img" src=>
+                    <img alt="100%x180" src="{{photo.url}}" class="img-thumbnail" style="height: 180px; width: 100%; display: block;">
+                    <a href="{% url 'delete_photo' photo_id=photo.id equipment_id=equipment.id %}">Delete Photo</a>
+                {% empty %}
+                    <img class="img-thumbnail" src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" style="height: 180px; width: 100%; display: block;">
+           
+                {% endfor %}
+            </div>
+
+            <div class="col_three_fourth col_last">
+                <p>{{equipment.description}}</p>
+                <span><strong>Mfg Date:</strong> {{equipment.mfg_year}}</span> 
+                <span><strong>Cost:</strong> ${{equipment.cost}}</span>
+                {% if equipment.incrementer == 'H'%}
+                    <span><strong>Hours:</strong> {{equipment.age}}</span>
+                {% else %}
+                    <span><strong>Mileage:</strong> {{equipment.age}}</span>
+                {% endif %}
+                <a href="#" data-toggle="modal" data-target="#editEquipmentModal">Edit</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} Edit Equipment Modal {% endcomment %}
+<div class="modal fade" id="editEquipmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'equipment_edit' equipment_id=equipment.id%}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Edit Equipment</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                                             
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="equipment-form-make">Make:</label>
+                                <input type="text" id="equipment-form-make" name="make" value="{{equipment.make}}" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="equipment-form-model">Model:</label>
+                                <input type="text" id="equipment-form-model" name="model" value="{{equipment.model}}" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label for="equipment-form-model">Year:</label>
+                                <input type="number" id="equipment-form-model" name="mfg_year" value="{{ equipment.mfg_year }}" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text"  id="description" name="description" value="{{ equipment.description }}" class="form-control"/>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-7">
+                                <label for="equipment-form-make">Hours/Miles:</label>
+                                <input type="number" id="equipment-form-make" name="age" aria-describedby="hoursHelp" value="{{ equipment.age }}"" class="form-control" />
+                                <small id="hoursHelp" class="form-text text-muted">Enter either the milage of the number or hours on the equipment.  If neither is applicable, leave the 0.</small>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="select">Increment:</label>
+                                <p>{{ equipment_form.incrementer }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="equipment-form-cost">Cost ($):</label>
+                            <input type="number" id="equipment-form-cost" name="cost" value="{{ equipment.cost }}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
+                        <button class="button button-3d button-red " type="submit" value="update">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

@@ -106,5 +106,15 @@ def equipment_create(request):
     return render(request, 'equipment/create.html', context)
 
 def equipment_show(request, equipment_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    equipment_form = EquipmentForm(instance=equipment)
+    context = {'equipment': equipment, 'equipment_form': equipment_form}
+    return render(request, 'equipment/show.html', context)
 
-    return render(request, 'equipment/show.html')
+def equipment_edit(request, equipment_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    if request.method == 'POST':
+        equipment_form = EquipmentForm(request.POST, instance=equipment)
+        if equipment_form.is_valid():
+            equipment_form.save()
+            return redirect('equipment_show', equipment_id=equipment.id)
