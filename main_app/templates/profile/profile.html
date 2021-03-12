@@ -46,13 +46,34 @@
                         </form>
                     {% else %}
                         <div >
-                            <a href="{% url 'profile_edit' %}" class="button button-3d button-black nomargin">Edit Profile</a>
-                            <a href="{% url 'profile_delete' %}" class="button button-3d button-red nomargin">Delete Account</a>
+                            <a href="{% url 'profile_edit' %}" class="button button-3d button-black ">Edit Profile</a>
+                            <button class="button button-3d button-red " data-toggle="modal" data-target="#myModal">Delete Account</button>
+                            
                         </div>   
                     {% endif %}
                 </div>
          </div>
     </div>
 </section>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Delete Account?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your Account?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
+                    <a href="{% url 'profile_delete' %}" class="button button-3d button-red ">Delete Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
