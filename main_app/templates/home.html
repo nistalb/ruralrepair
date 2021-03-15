@@ -69,7 +69,7 @@
 						<ul>
                             {% if user.is_authenticated %}
                                 <li><a href="{% url 'garage' %}"><div>Garage</div></a></li>
-                                <li><a href="#"><div>Tools</div></a></li>
+                                <li><a href="{% url 'tool_index' %}"><div>Tools</div></a></li>
                                 <li><a href="#"><div>Consumables</div></a></li>
                                 <li><a href="{% url 'profile' %}"><div>Profile</div></a></li>
                                 <li><a href="{% url 'logout' %}"><div>Log Out</div></a></li>

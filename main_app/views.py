@@ -3,7 +3,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumable, Maint_Record, Photo
@@ -118,3 +118,41 @@ def equipment_edit(request, equipment_id):
         if equipment_form.is_valid():
             equipment_form.save()
             return redirect('equipment_show', equipment_id=equipment.id)
+
+# ==== Tools ====
+def tool_index(request):
+    tool = Tool.objects.filter(user_id=request.user.id)
+    context = {'tool': tool}
+    return render(request, 'tools/index.html', context)
+
+def tool_create(request):
+    if request.method == 'POST':
+        tool_form = ToolForm(request.POST)
+        if tool_form.is_valid():
+            tool = tool_form.save(commit=False)
+            tool.user = request.user
+            tool.save()
+            return redirect('tool_index')
+        else:
+            context = {'error': "Something has gone wrong.  Try Again."}
+            return render(request, 'tools/create.html', context)
+
+    tool_form = ToolForm()
+    context = {'tool_form': ToolForm}
+    return render(request, 'tools/create.html', context)
+
+def tool_edit (request, tool_id):
+    tool = Tool.objects.get(id=tool_id)
+    if request.method == 'POST':
+        tool_form = ToolForm(request.POST, instance=tool)
+        if tool_form.is_valid():
+            tool_form.save()
+            return redirect('tool_index')
+
+    tool_form = ToolForm(instance=tool)
+    context = {'tool_form': tool_form, 'tool':tool}
+    return render(request, 'tools/edit.html', context)
+
+def tool_delete(reqeust, tool_id):
+    Tool.objects.get(id=tool_id).delete()
+    return redirect('tool_index')

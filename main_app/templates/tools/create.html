@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Create a Tool</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'tool_index' %}">Tool Box</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Create a Tool</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix" style="max-width: 900px;">
+
+            <div class="card nobottommargin">
+                <div class="card-body" style="padding: 40px;">
+                    <h3>Tool Information</h3>
+
+                    <form id="register-form" name="tool-form" class="nobottommargin" action="{% url 'tool_create' %}" method="POST">
+                        {% csrf_token %}
+                        
+                         {% if error %}
+                            <div class="style-msg errormsg">
+							    <div class="sb-msg"><i class="icon-remove"></i><strong>Oops!</strong> {{error}}</div>
+						    </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            <label for="tool-form-name">Tool name:</label>
+                            <input type="text" id="tool-form-name" name="tool_name" placeholder="Hammer" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="col_full nobottommargin">
+                            <button class="button button-3d button-black " type="submit" value="update">Create</button>
+                            <a href="{% url 'tool_index' %}" class="button button-3d button-red ">Cancel</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

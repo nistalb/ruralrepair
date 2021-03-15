@@ -1,0 +1,48 @@
+{%  extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Tool Box</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tools</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content" style="background-image: url('../static/business/images/toolbox.jpeg'); background-size: cover; background-attachment: fixed">
+    <div class="content-wrap">
+        <div class="container clearfix" >
+            <div class="row">
+                {% if tool %}
+                    {% for tool in tool %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p class="card-text">{{ tool.tool_name}}</p>
+                                <p class="card-text">{{ tool.description}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'tool_edit' tool_id=tool.id%}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'tool_delete' tool_id=tool.id%}" class="btn btn-primary">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                   <p style= "color: white; font-size: 1.5em;">You haven't added any tools yet.  Hit the Add Tool Button to get started.</p>
+                {% endif %}
+            </div>
+            <div class="content-wrap ">
+                <div class="container clearfix">
+                    <div class="col-ful center">
+                        <a href="{% url 'tool_create' %}" class="btn btn-primary">Add Tool</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -17,3 +17,8 @@ class EquipmentForm(ModelForm):
     class Meta:
         model = Equipment
         fields = ('model', 'make', 'mfg_year', 'description', 'age', 'incrementer', 'cost')
+
+class ToolForm(ModelForm):
+    class Meta:
+        model = Tool
+        fields =('tool_name', 'description')
