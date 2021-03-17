@@ -24,8 +24,8 @@
                                 <p class="card-text">{{ tool.description}}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'tool_edit' tool_id=tool.id%}" class="btn btn-primary">Edit</a>
-                                <a href="{% url 'tool_delete' tool_id=tool.id%}" class="btn btn-primary">Delete</a>
+                                <a href="{% url 'tool_edit' tool_id=tool.id%}" class="button button-3d button-black">Edit</a>
+                                <a href="{% url 'tool_delete' tool_id=tool.id%}"><button type="button" class="button button-3d button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
                             </div>
                         </div>
                     </div>
@@ -37,12 +37,46 @@
             <div class="content-wrap ">
                 <div class="container clearfix">
                     <div class="col-ful center">
-                        <a href="{% url 'tool_create' %}" class="btn btn-primary">Add Tool</a>
+                        <a href="{% url 'tool_create' %}" data-toggle="modal" data-target="#createToolModal" class="btn btn-primary">Add Tool</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+{% comment %} Edit Equipment Modal {% endcomment %}
+<div class="modal fade" id="createToolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'tool_create' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Create Tool</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                                             
+                        <div class="form-group">
+                            <label for="tool-form-name">Tool name:</label>
+                            <input type="text" id="tool-form-name" name="tool_name" placeholder="Hammer" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
+                        <button class="button button-3d button-red " type="submit" value="update">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

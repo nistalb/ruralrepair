@@ -133,13 +133,6 @@ def tool_create(request):
             tool.user = request.user
             tool.save()
             return redirect('tool_index')
-        else:
-            context = {'error': "Something has gone wrong.  Try Again."}
-            return render(request, 'tools/create.html', context)
-
-    tool_form = ToolForm()
-    context = {'tool_form': ToolForm}
-    return render(request, 'tools/create.html', context)
 
 def tool_edit (request, tool_id):
     tool = Tool.objects.get(id=tool_id)
