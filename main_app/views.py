@@ -3,7 +3,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm, ConsumableForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumable, Maint_Record, Photo
@@ -133,6 +133,8 @@ def tool_create(request):
             tool.user = request.user
             tool.save()
             return redirect('tool_index')
+        else:
+            return redirect('tool_index')
 
 def tool_edit (request, tool_id):
     tool = Tool.objects.get(id=tool_id)
@@ -149,3 +151,36 @@ def tool_edit (request, tool_id):
 def tool_delete(reqeust, tool_id):
     Tool.objects.get(id=tool_id).delete()
     return redirect('tool_index')
+
+# ==== Consumables ====
+def consumable_index(request):
+    consumable = Consumable.objects.filter(user_id=request.user.id)
+    context = {'consumable': consumable}
+    return render(request, 'consumables/index.html', context)
+
+def consumable_create(request):
+    if request.method == 'POST':
+        consumable_form = ConsumableForm(request.POST)
+        if consumable_form.is_valid():
+            consumable = consumable_form.save(commit=False)
+            consumable.user = request.user
+            consumable.save()
+            return redirect('consumable_index')
+        else:
+            return redirect('consumable_index')
+
+def consumable_edit (request, consumable_id):
+    consumable = Consumable.objects.get(id=consumable_id)
+    if request.method == 'POST':
+        consumable_form = ConsumableForm(request.POST, instance=consumable)
+        if consumable_form.is_valid():
+            consumable_form.save()
+            return redirect('consumable_index')
+
+    consumable_form = ConsumableForm(instance=consumable)
+    context = {'consumable_form': consumable_form, 'consumable':consumable}
+    return render(request, 'consumables/edit.html', context)
+
+def consumable_delete(reqeust, consumable_id):
+    Consumable.objects.get(id=consumable_id).delete()
+    return redirect('consumable_index')

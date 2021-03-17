@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Consumables Cabinet</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Consumables</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content" style="background-image: url('../static/business/images/toolbox.jpeg'); background-size: cover; background-attachment: fixed">
+    <div class="content-wrap">
+        <div class="container clearfix" >
+            <div class="row">
+                {% if consumable %}
+                    {% for consumable in consumable %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <p class="card-text">{{ consumable.name}}</p>
+                                <p class="card-text">{{ consumable.description}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'consumable_edit' consumable_id=consumable.id %}" class="button button-3d button-black">Edit</a>
+                                <a href="{% url 'consumable_delete' consumable_id=consumable.id%}"><button type="button" class="button button-3d button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                   <p style= "color: white; font-size: 1.5em;">You haven't added any consumables yet.  Hit the Add Consumable Button to get started.</p>
+                {% endif %}
+            </div>
+            <div class="content-wrap ">
+                <div class="container clearfix">
+                    <div class="col-ful center">
+                        <a href="{% url 'consumable_create' %}" data-toggle="modal" data-target="#createConsumableModal" class="btn btn-primary">Add Consumable</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} Edit Equipment Modal {% endcomment %}
+<div class="modal fade" id="createConsumableModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'consumable_create' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Create Consumable</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                                             
+                        <div class="form-group">
+                            <label for="tool-form-name">Tool name:</label>
+                            <input type="text" id="tool-form-name" name="name" placeholder="Hammer" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
+                        <button class="button button-3d button-red " type="submit" value="update">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

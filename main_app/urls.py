@@ -16,5 +16,8 @@ urlpatterns = [
     path('tool/create', views.tool_create, name='tool_create'),
     path('tool/<int:tool_id>/edit', views.tool_edit, name='tool_edit'),
     path('tool/<int:tool_id>/delete', views.tool_delete, name='tool_delete'),
-
+    path('consumable/index', views.consumable_index, name='consumable_index'),
+    path('consumable/create', views.consumable_create, name='consumable_create'),
+    path('consumable/<int:consumable_id>/edit', views.consumable_edit, name='consumable_edit'),
+    path('consumable/<int:consumable_id>/delete', views.consumable_delete, name='consumable_delete'),
 ]
