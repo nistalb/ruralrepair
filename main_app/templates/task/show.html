@@ -35,6 +35,7 @@
                 <div>
                    <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-small button-red">Return to Equipment Page</a> 
                    <a href="{% url 'task_edit' task_id=task.id %}" class="button button-3d button-small button-red">Edit Task</a>
+                   <a href="#" data-toggle="modal" data-target="#deleteTaskModal" class="button button-3d button-small button-red">Delete Task</a>
                 </div>
             </div>
             {% comment %} Sidebar {% endcomment %}
@@ -77,32 +78,24 @@
     </div>
 </section>
 
-{% comment %} Edit Equipment Modal {% endcomment %}
-<div class="modal fade" id="createToolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+{% comment %} Delete Task Modal {% endcomment %}
+<div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-body">
             <div class="modal-content">
                 <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'tool_create' %}" method="POST">
                     {% csrf_token %}
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Create Tool</h4>
+                        <h4 class="modal-title" id="myModalLabel">Delete Task</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
                                              
-                        <div class="form-group">
-                            <label for="tool-form-name">Tool name:</label>
-                            <input type="text" id="tool-form-name" name="tool_name" placeholder="Hammer" class="form-control" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                        </div>
+                        <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="button button-3d button-teal" type="submit" value="update">Create</button>
+                        <a href="{% url 'task_delete' task_id=task.id %}" class="button button-3d button-teal">Confirm Delete</a>
                         <button type="button" class="button button-3d button-red" data-dismiss="modal">Close</button>
                     </div>
                 </form>

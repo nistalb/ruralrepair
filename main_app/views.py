@@ -166,6 +166,11 @@ def task_edit(request, task_id):
     context = {'task': task, 'equipment': equipment, 'task_form': task_form}
     return render(request, 'task/edit.html', context)
 
+def task_delete(request, task_id):
+    task = Task.objects.get(id=task_id)
+    task.delete()
+    return redirect('equipment_show', equipment_id=task.equipment_id)
+
 # ==== Tools ====
 def tool_index(request):
     tool = Tool.objects.filter(user_id=request.user.id)
