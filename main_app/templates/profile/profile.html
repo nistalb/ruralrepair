@@ -46,8 +46,8 @@
                         </form>
                     {% else %}
                         <div >
-                            <a href="{% url 'profile_edit' %}" class="button button-3d button-black ">Edit Profile</a>
-                            <button class="button button-3d button-red " data-toggle="modal" data-target="#myModal">Delete Account</button>
+                            <a href="{% url 'profile_edit' %}" class="button button-3d button-small button-teal">Edit Profile</a>
+                            <button class="button button-3d button-small button-red " data-toggle="modal" data-target="#myModal">Delete Account</button>
                             
                         </div>   
                     {% endif %}
@@ -69,8 +69,8 @@
                     <p>Are you sure you want to delete your Account?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="button button-3d button-black " data-dismiss="modal">Cancel</button>
-                    <a href="{% url 'profile_delete' %}" class="button button-3d button-red ">Delete Account</a>
+                    <button type="button" class="button button-3d button-small button-teal " data-dismiss="modal">Cancel</button>
+                    <a href="{% url 'profile_delete' %}" class="button button-3d button-small button-red ">Delete Account</a>
                 </div>
             </div>
         </div>

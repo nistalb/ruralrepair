@@ -3,7 +3,7 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm, ConsumableForm, PhotoForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm, ConsumableForm, PhotoForm, TaskForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumable, Maint_Record, Photo
@@ -116,7 +116,9 @@ def equipment_create(request):
 def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     equipment_form = EquipmentForm(instance=equipment)
-    context = {'equipment': equipment, 'equipment_form': equipment_form}
+    tasks = equipment.task_set.all()
+    task_form = TaskForm()
+    context = {'equipment': equipment, 'equipment_form': equipment_form, 'task_form': task_form, 'tasks': tasks}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -130,6 +132,26 @@ def equipment_edit(request, equipment_id):
 def equipment_delete(request, equipment_id):
     Equipment.objects.get(id=equipment_id).delete()
     return redirect('garage')
+
+# ==== Tasks ====
+def task_create(request, equipment_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    if request.method == 'POST':
+        task_form = TaskForm(request.POST)
+        if task_form.is_valid():
+            task = task_form.save(commit=False)
+            task.equipment = equipment
+            task.save()
+            return redirect('equipment_show', equipment_id)
+
+def task_show(request, task_id):
+    task = Task.objects.get(id=task_id)
+    equipment = Equipment.objects.get(id=task.equipment_id)
+    # profile = Profile.objects.get(user_id=request.user.id)
+    # consumables = task.consumable.all()
+    # cost = task_cost(profile, task, consumables)
+    context = {'task': task, 'equipment': equipment}
+    return render(request, 'task/show.html', context)
 
 # ==== Tools ====
 def tool_index(request):

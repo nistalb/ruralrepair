@@ -23,4 +23,6 @@ urlpatterns = [
     path('consumable/create', views.consumable_create, name='consumable_create'),
     path('consumable/<int:consumable_id>/edit', views.consumable_edit, name='consumable_edit'),
     path('consumable/<int:consumable_id>/delete', views.consumable_delete, name='consumable_delete'),
+    path('task/<int:equipment_id>/create', views.task_create, name='task_create'),
+    path('task/<int:task_id>/show', views.task_show, name='task_show'),
 ]

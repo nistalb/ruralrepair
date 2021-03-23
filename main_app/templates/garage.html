@@ -28,8 +28,8 @@
                                 <p class="card-text">{{ equipment.make}} {{equipment.model }}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-black">View</a>
-                                <a href="{% url 'equipment_delete' equipment_id=equipment.id%}"><button type="button" class="button button-3d button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
+                                <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-small button-teal">View</a>
+                                <a href="{% url 'equipment_delete' equipment_id=equipment.id%}"><button type="button" class="button button-3d button-small button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
                             </div>
                         </div>
                     </div>

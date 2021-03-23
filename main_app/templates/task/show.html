@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+ 
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>{{ task.task_name }}</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'garage' %}">Garage</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'equipment_show' equipment_id=equipment.id %}">{{ equipment.make }} {{ equipment.model }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ task.task_name }}</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix" style="max-width: 1000px;">
+            <p>You should perform this task every {{ task.interval }} 
+            {% if task.interval_type == 'H'%}
+                Hours
+            {% elif task.interval_type == 'M'%} 
+                Miles
+            {% else %}
+                Months
+            {% endif %}
+            and it should take you {{ task.duration }} hours.</p>
+            <h3>Instructions</h3>
+            <p>{{task.instructions}}</p>
+
+
+        <div>
+    </div>
+</section>
+
+{% endblock %}

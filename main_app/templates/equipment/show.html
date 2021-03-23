@@ -47,11 +47,52 @@
                 <a href="#" data-toggle="modal" data-target="#editEquipmentModal">Edit</a>
             </div>
         </div>
+    
+        <div class="tabs tabs-responsive clearfix">
+
+            <ul class="tab-nav clearfix">
+                <li><a href="#tab-responsive-1">Tasks</a></li>
+                <li><a href="#tab-responsive-2">Maintenance Record</a></li>
+                <li><a href="#tab-responsive-3">Tools</a></li>
+                <li><a href="#tab-responsive-4">Consumables</a></li>
+            </ul>
+
+            <div class="tab-container">
+
+                <div class="tab-content clearfix" id="tab-responsive-1">
+                    <p class="handwritten">Click on a task to see its details, add tools and consumables, and create maintenance records.</p>
+                    {% if tasks %}
+                        {% for task in tasks %}
+                            <section class="ui ui relaxed horizontal list">
+                                <section class="item">
+                                    <section class="header">
+                                        <a href="{% url 'task_show' task_id=task.id %}"> 
+                                            <p class="handwritten"> {{ task.task_name }} </p>
+                                        </a> 
+                                    </section>
+                                </section>
+                            </section>
+                        {% endfor %} 
+                    {% else %}
+                        <p class="handwritten"> Click on the add button to add the tasks necessary to maintain your {{equipment.make}} {{equipment.model}}.</p>
+                    {% endif %}
+                    <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#addTaskModal">Add Task</a>
+                </div>
+                <div class="tab-content clearfix" id="tab-responsive-2">
+                    Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.
+                </div>
+                <div class="tab-content clearfix" id="tab-responsive-3">
+                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                    Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.
+                </div>
+                <div class="tab-content clearfix" id="tab-responsive-4">
+                    Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.
+                </div>
+
+            </div>
+        </div>
     </div>
 </section>
-
-
-
 
 {% comment %} Edit Equipment Modal {% endcomment %}
 <div class="modal fade" id="editEquipmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -116,5 +157,61 @@
     </div>
 </div>
 
+{% comment %} Add Task Modal {% endcomment %}
+<div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <form id="task-form" name="task-form" class="nobottommargin" action="{% url 'task_create' equipment_id=equipment.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Create Task</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                                             
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="task-form-name"> Task Name:</label>
+                                <input type="text" id="task-form-name" name="task_name" placeholder="task" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="task-form-interval">Task Duration:</label>
+                                <input type="number" id="task-form-interval" name="duration" value=0 class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="task-form-interval">Maintenance Interval:</label>
+                                <input type="number" id="task-form-interval" name="interval" value=0 class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="select">Type:</label>
+                                <p>{{ task_form.interval_type }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="instructions">Instructions:</label>
+                            <textarea class="form-control" id="instructions" name="instructions" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="video">Video:</label>
+                            <input type="text" id="video" name="video" placeholder="video" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
+                        <button class="button button-3d button-red " type="submit" value="update">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

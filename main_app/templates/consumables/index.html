@@ -27,8 +27,8 @@
                                 <p class="card-text"><strong>Cost:</strong> ${{ consumable.cost}}.00</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'consumable_edit' consumable_id=consumable.id %}" class="button button-3d button-black">Edit</a>
-                                <a href="{% url 'consumable_delete' consumable_id=consumable.id%}"><button type="button" class="button button-3d button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
+                                <a href="{% url 'consumable_edit' consumable_id=consumable.id %}" class="button button-3d button-small button-teal">Edit</a>
+                                <a href="{% url 'consumable_delete' consumable_id=consumable.id%}"><button type="button" class="button button-3d button-small button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
                             </div>
                         </div>
                     </div>
@@ -90,8 +90,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
-                        <button class="button button-3d button-red " type="submit" value="update">Create</button>
+                        <button class="button button-3d button-small button-teal " type="submit" value="update">Create</button>
+                        <button type="button" class="button button-3d button-small button-red" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

@@ -24,8 +24,8 @@
                                 <p class="card-text">{{ tool.description}}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="{% url 'tool_edit' tool_id=tool.id%}" class="button button-3d button-black">Edit</a>
-                                <a href="{% url 'tool_delete' tool_id=tool.id%}"><button type="button" class="button button-3d button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
+                                <a href="{% url 'tool_edit' tool_id=tool.id%}" class="button button-3d button-small button-teal">Edit</a>
+                                <a href="{% url 'tool_delete' tool_id=tool.id%}"><button type="button" class="button button-3d button-small button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
                             </div>
                         </div>
                     </div>
@@ -70,8 +70,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="button button-3d button-black " data-dismiss="modal">Close</button>
-                        <button class="button button-3d button-red " type="submit" value="update">Create</button>
+                        <button class="button button-3d button-teal" type="submit" value="update">Create</button>
+                        <button type="button" class="button button-3d button-red" data-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>
