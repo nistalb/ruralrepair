@@ -21,27 +21,37 @@
                 {% for photo in equipment.photo_set.all %}
                     <img class="profile-img" src=>
                     <img alt="100%x180" src="{{photo.url}}" class="img-thumbnail" style="height: 180px; width: 100%; display: block;">
-                    <a href="{% url 'delete_photo' photo_id=photo.id equipment_id=equipment.id %}">Delete Photo</a>
+                    <a href="{% url 'delete_photo' equipment_id=equipment.id photo_id=photo.id %}">Delete Photo</a>
                 {% empty %}
                     <img class="img-thumbnail" src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" style="height: 180px; width: 100%; display: block;">
-           
+                
+                    {% comment %} Photo Form {% endcomment %}
+                    <form action="{% url 'add_photo' equipment.id %}" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        <input type="file" name="photo-file">
+                        <br><br>
+                        <input type="submit" class="button button-3d button-black" value="Upload Photo">
+                    </form>
                 {% endfor %}
             </div>
 
             <div class="col_three_fourth col_last">
                 <p>{{equipment.description}}</p>
-                <span><strong>Mfg Date:</strong> {{equipment.mfg_year}}</span> 
-                <span><strong>Cost:</strong> ${{equipment.cost}}</span>
+                <span><strong>Mfg Date:</strong> {{equipment.mfg_year}} |</span> 
+                <span><strong>Cost:</strong> ${{equipment.cost}} |</span>
                 {% if equipment.incrementer == 'H'%}
-                    <span><strong>Hours:</strong> {{equipment.age}}</span>
+                    <span><strong>Hours:</strong> {{equipment.age}} |</span>
                 {% else %}
-                    <span><strong>Mileage:</strong> {{equipment.age}}</span>
+                    <span><strong>Mileage:</strong> {{equipment.age}} |</span>
                 {% endif %}
                 <a href="#" data-toggle="modal" data-target="#editEquipmentModal">Edit</a>
             </div>
         </div>
     </div>
 </section>
+
+
+
 
 {% comment %} Edit Equipment Modal {% endcomment %}
 <div class="modal fade" id="editEquipmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

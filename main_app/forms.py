@@ -27,3 +27,8 @@ class ConsumableForm(ModelForm):
     class Meta:
         model = Consumable
         fields = ('name', 'description', 'part_number', 'source', 'cost')
+
+class PhotoForm(ModelForm):
+    class Meta:
+        model = Photo
+        fields = ('url',)

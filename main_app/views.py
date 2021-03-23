@@ -3,10 +3,18 @@ from django.contrib.auth import login
 
 # import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm, ConsumableForm
+from .forms import NewUserForm, ProfileForm, EquipmentForm, ToolForm, ConsumableForm, PhotoForm
 
 # import models
 from .models import User, Profile, Equipment, Task, Tool, Consumable, Maint_Record, Photo
+
+# AWS Imports
+import boto3
+import uuid
+
+# AWS Constants
+S3_BASE_URL = 'https://s3-us-west-2.amazonaws.com/'
+BUCKET = 'ruralrepair'
 
 # Create your views here.
 
@@ -119,6 +127,10 @@ def equipment_edit(request, equipment_id):
             equipment_form.save()
             return redirect('equipment_show', equipment_id=equipment.id)
 
+def equipment_delete(request, equipment_id):
+    Equipment.objects.get(id=equipment_id).delete()
+    return redirect('garage')
+
 # ==== Tools ====
 def tool_index(request):
     tool = Tool.objects.filter(user_id=request.user.id)
@@ -184,3 +196,28 @@ def consumable_edit (request, consumable_id):
 def consumable_delete(reqeust, consumable_id):
     Consumable.objects.get(id=consumable_id).delete()
     return redirect('consumable_index')
+
+# ==== Photo ====
+def add_photo(request, equipment_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+
+            photo = Photo(url=url, equipment_id=equipment_id, user_id=request.user.id)
+            photo.save()
+        # just in case something goes wrong
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('equipment_show', equipment_id=equipment_id)
+
+def delete_photo(request, equipment_id, photo_id):
+    Photo.objects.get(id=photo_id).delete()
+    return redirect('equipment_show', equipment_id=equipment_id)

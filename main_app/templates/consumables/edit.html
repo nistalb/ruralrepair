@@ -22,12 +22,12 @@
                 <div class="card-body" style="padding: 40px;">
                     <h3>Tool Information</h3>
 
-                    <form id="register-form" name="tool-form" class="nobottommargin" action="{% url 'consumable_edit' consumable.id %}" method="POST">
+                    <form id="register-form" name="consumable-form" class="nobottommargin" action="{% url 'consumable_edit' consumable.id %}" method="POST">
                         {% csrf_token %}
                         
                         <div class="form-group">
-                            <label for="tool-form-name">Consumable name:</label>
-                            <input type="text" id="tool-form-name" name="name" value="{{ consumable.name}}" class="form-control" />
+                            <label for="consumable-form-name">Consumable name:</label>
+                            <input type="text" id="consumable-form-name" name="name" value="{{ consumable.name}}" class="form-control" />
                         </div>
 
                         <div class="form-group">
@@ -37,18 +37,18 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="equipment-form-make">Part Number:</label>
-                                <input type="text" id="equipment-form-make" name="part_number" value="{{ consumable.part_number }}" class="form-control" />
+                                <label for="consumable-form-part">Part Number:</label>
+                                <input type="text" id="consumable-form-part" name="part_number" value="{{ consumable.part_number }}" class="form-control" />
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="equipment-form-model">Source:</label>
-                                <input type="text" id="equipment-form-model" name="source" value="{{ consumable.source }}" class="form-control" />
+                                <label for="consumable-form-source">Source:</label>
+                                <input type="text" id="consumable-form-source" name="source" value="{{ consumable.source }}" class="form-control" />
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="equipment-form-model">Cost ($):</label>
-                                <input type="number" id="equipment-form-model" name="cost" value="{{ consumable.cost }}" class="form-control" />
+                                <label for="consumable-form-cost">Cost ($):</label>
+                                <input type="number" id="consumable-form-cost" name="cost" value="{{ consumable.cost }}" class="form-control" />
                             </div>
                         </div>
 

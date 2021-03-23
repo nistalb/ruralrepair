@@ -19,10 +19,17 @@
                     {% for equipment in equipment %}
                     <div class="col-md-6 col-lg-4">
                         <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" data-src="holder.js/300x200" alt="Card image cap">
+                            {% for photo in equipment.photo_set.all %}
+                                <img class="card-img-top" src={{ photo.url }} style="height: 180px; width: 100%; display: block;" alt="Card image cap">
+                            {% empty %}
+                                <img src="https://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png" style="height: 180px; width: 100%; display: block;" alt="" class="card-img-top">
+                            {% endfor %}
                             <div class="card-body">
-                            <p class="card-text">{{ equipment.make}} {{equipment.model }}</p>
-                            <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="btn btn-primary">View Equipment</a>
+                                <p class="card-text">{{ equipment.make}} {{equipment.model }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-black">View</a>
+                                <a href="{% url 'equipment_delete' equipment_id=equipment.id%}"><button type="button" class="button button-3d button-red" data-toggle="tooltip" data-placement="right" title="Are you sure?">Delete</button></a>
                             </div>
                         </div>
                     </div>
