@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Edit {{ task.task_name }}</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'garage' %}">Garage</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'equipment_show' equipment_id=equipment.id %}">{{ equipment.make }} {{ equipment.model }}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'task_show' task_id=task.id %}">{{ task.task_name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+            <div class="card nobottommargin">
+                <div class="card-body" style="padding: 40px;">
+                    <h3>Task Information</h3>
+                    <form id="task-form" name="task-form" class="nobottommargin" action="{% url 'task_edit' task_id=task.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="task-form-name"> Task Name:</label>
+                                <input type="text" id="task-form-name" name="task_name" value="{{ task.task_name }}" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="task-form-interval">Task Duration (hours):</label>
+                                <input type="number" id="task-form-interval" name="duration" value="{{task.duration}}" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="task-form-interval">Maintenance Interval:</label>
+                                <input type="number" id="task-form-interval" name="interval" value="{{task.interval}}" class="form-control" />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="select">Type:</label>
+                                <p>{{ task_form.interval_type }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="instructions">Instructions:</label>
+                            <textarea name="instructions" cols="30" rows="5" class="form-control">{{ task.instructions }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="video">Video:</label>
+                            <input type="text" id="video" name="video" value="{{ task.video }}" class="form-control" />
+                        </div>
+                        
+                        <div>
+                            <button class="button button-3d button-small button-teal" type="submit" value="update">Update</button>
+                            <a href="{% url 'task_show' task_id=task.id %}" class="button button-3d button-small button-red">Cancel</a>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

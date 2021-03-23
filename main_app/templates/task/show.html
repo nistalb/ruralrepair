@@ -15,22 +15,100 @@
 
 <section id="content">
     <div class="content-wrap">
-        <div class="container clearfix" style="max-width: 1000px;">
-            <p>You should perform this task every {{ task.interval }} 
-            {% if task.interval_type == 'H'%}
-                Hours
-            {% elif task.interval_type == 'M'%} 
-                Miles
-            {% else %}
-                Months
-            {% endif %}
-            and it should take you {{ task.duration }} hours.</p>
-            <h3>Instructions</h3>
-            <p>{{task.instructions}}</p>
+        <div class="container clearfix">
+            <div class="postcontent nobottommargin clearfix">
+                <p>You should perform this task every {{ task.interval }} 
+                {% if task.interval_type == 'H'%}
+                    Hours
+                {% elif task.interval_type == 'M'%} 
+                    Miles
+                {% else %}
+                    Months
+                {% endif %}
+                and it should take you about {{ task.duration }} hours.</p>
+                <h4>Instructions</h4>
+                <p>{{task.instructions}}</p>
+                {% if task.video %}
+                    <p>Video</p>
+                    {{ task.video }}
+                {% endif %}
+                <div>
+                   <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-small button-red">Return to Equipment Page</a> 
+                   <a href="{% url 'task_edit' task_id=task.id %}" class="button button-3d button-small button-red">Edit Task</a>
+                </div>
+            </div>
+            {% comment %} Sidebar {% endcomment %}
+            <div class="sidebar nobottommargin col_last clearfix">
+                <div class="sidebar-widgets-wrap">
 
+                    <div class="widget clearfix">
+
+                        <h4>Tools</h4>
+                        {% if task.tool.count %}
+                            <ul>
+                                {% for tool in tool.task.all %}
+                                    <li><div>{{ tool.name}} - {{tool.description}} </div></li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <h5>No tools</h5>
+                        {% endif %}
+                    </div>
+
+                    <div class="widget clearfix">
+
+                        <h4>Consumables</h4>
+                        {% if task.consumable.count %}
+                            <ul>
+                                {% for consumable in task.consumable.all %}
+                                <li><div>{{ consumable.name}} - {{ consumable.description }}</div></li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <h5>No Consumables</h5>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            {% comment %} end sidebar {% endcomment %}
 
         <div>
     </div>
 </section>
+
+{% comment %} Edit Equipment Modal {% endcomment %}
+<div class="modal fade" id="createToolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'tool_create' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Create Tool</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                                             
+                        <div class="form-group">
+                            <label for="tool-form-name">Tool name:</label>
+                            <input type="text" id="tool-form-name" name="tool_name" placeholder="Hammer" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="button button-3d button-teal" type="submit" value="update">Create</button>
+                        <button type="button" class="button button-3d button-red" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
