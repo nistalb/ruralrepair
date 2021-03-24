@@ -117,8 +117,9 @@ def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     equipment_form = EquipmentForm(instance=equipment)
     tasks = equipment.task_set.all()
+    maintenance = equipment.maint_record_set.all()
     task_form = TaskForm()
-    context = {'equipment': equipment, 'equipment_form': equipment_form, 'task_form': task_form, 'tasks': tasks}
+    context = {'equipment': equipment, 'equipment_form': equipment_form, 'task_form': task_form, 'tasks': tasks, 'maintenance': maintenance}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -170,6 +171,16 @@ def task_delete(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
     return redirect('equipment_show', equipment_id=task.equipment_id)
+
+# ==== Maintenance Record ====
+def create_maint_record(request, equipment_id, task_id):
+    equipment = Equipment.objects.get(id=equipment_id)
+    task = Task.objects.get(id=task_id)
+    age = equipment.age
+    incrementor = equipment.incrementer
+    maint_record = Maint_Record.objects.create(age=age, incrementor=incrementor, task=task, equipment=equipment)
+    maint_record.save()
+    return redirect('equipment_show', equipment_id=equipment_id)
 
 # ==== Tools ====
 def tool_index(request):

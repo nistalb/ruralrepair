@@ -36,6 +36,7 @@
                    <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-small button-red">Return to Equipment Page</a> 
                    <a href="{% url 'task_edit' task_id=task.id %}" class="button button-3d button-small button-red">Edit Task</a>
                    <a href="#" data-toggle="modal" data-target="#deleteTaskModal" class="button button-3d button-small button-red">Delete Task</a>
+                   <a href="#" data-toggle="modal" data-target="#maintModal" class="button button-3d button-small button-red">Create Maintanance Record</a>
                 </div>
             </div>
             {% comment %} Sidebar {% endcomment %}
@@ -83,22 +84,42 @@
     <div class="modal-dialog">
         <div class="modal-body">
             <div class="modal-content">
-                <form id="register-form" name="equipment-form" class="nobottommargin" action="{% url 'tool_create' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Delete Task</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                                             
-                        <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Delete Task</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                                            
+                    <p>Are you sure you want to delete your {{task.task_name}}?  If you do, all related maintenance records will also be deleted.</p>
 
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{% url 'task_delete' task_id=task.id %}" class="button button-3d button-teal">Confirm Delete</a>
-                        <button type="button" class="button button-3d button-red" data-dismiss="modal">Close</button>
-                    </div>
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'task_delete' task_id=task.id %}" class="button button-3d button-small button-teal">Confirm Delete</a>
+                    <button type="button" class="button button-3d button-small button-red" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %} Create Maint Record Modal {% endcomment %}
+<div class="modal fade" id="maintModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Create Record</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                                            
+                    <p>Is the equipment up to date for hours/miles?  If not, edit the equipment and then create a maintenance record.</p>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'create_maint_record' equipment_id=task.equipment_id task_id=task.id %}" class="button button-3d button-small button-teal">Confirm Create</a>
+                    <button type="button" class="button button-3d button-small button-red" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
     </div>

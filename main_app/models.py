@@ -86,8 +86,8 @@ class Task(models.Model):
 
 class Maint_Record(models.Model):
     date = models.DateField(auto_now=True)
-    mileage = models.PositiveIntegerField(blank=True, default=0) 
-    hours = models.PositiveIntegerField(blank=True, default=0) 
+    age = models.PositiveIntegerField(blank=True, default=0) 
+    incrementor = models.CharField(max_length=1, blank=False, default='M') 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
 
