@@ -55,12 +55,13 @@
                             <label for="video">Video:</label>
                             <input type="text" id="video" name="video" value="{{ task.video }}" class="form-control" />
                         </div>
-                        
+                    
                         <div>
                             <button class="button button-3d button-small button-teal" type="submit" value="update">Update</button>
                             <a href="{% url 'task_show' task_id=task.id %}" class="button button-3d button-small button-red">Cancel</a>
                         </div>
                     </form>
+                </div>
             </div>
         </div>
     </div>

@@ -76,7 +76,9 @@
                                 <p class="handwritten"> Click on the add button to add the tasks necessary to maintain your {{equipment.make}} {{equipment.model}}.</p>
                             {% endif %}
                         </div>
-                        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#addTaskModal">Add Task</a>
+                        <div class="center">
+                            <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#addTaskModal">Add Task</a>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-content clearfix lined-paper" id="tab-responsive-2">
@@ -98,16 +100,49 @@
                                         </ul>
                                     </div>
                                 {% endfor %}
+                            {% else %}
+                                <p>Maintenance records for your {{equipment.make}} {{equipment.model}} will be added here as they are created.  Create maintenance records from tasks.</p>
                             {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="tab-content clearfix" id="tab-responsive-3">
-                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-                    Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.
+                <div class="tab-content clearfix lined-paper" id="tab-responsive-3">
+                    <div class="paper_tabs">
+                        <p>This tab holds all of the tools that are used to work on this piece of equipment.</p>
+                        {% if tools %}
+                            <div class="row">
+                                {% for tool in tools %}
+                                    <div class="col-md-6 col-lg-3">
+                                        <ul style="list-style-type:none;">
+                                            <li>{{tool.tool_name}}</li>
+                                            <li>{{tool.description}}</li>
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>You will see the tools that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="tab-content clearfix" id="tab-responsive-4">
-                    Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.
+                <div class="tab-content clearfix lined-paper" id="tab-responsive-4">
+                    <div class="paper_tabs">
+                        <p>This tab holds all of the consumables that are used to maintain this piece of equipment.</p>
+                        {% if consumables %}
+                            <div class="row">
+                                {% for consumable in consumables %}
+                                    <div class="col-md-6 col-lg-3">
+                                        <ul style="list-style-type:none;">
+                                            <li>{{consumable.name}}</li>
+                                            <li>{{consumable.description}}</li>
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>You will see consumables that are needed to maintain your {{equipment.make}} {{equipment.model}} here when you add them to tasks.</p>
+                        {% endif %}
+                    </div>
                 </div>
 
             </div>
@@ -154,7 +189,7 @@
                             <div class="form-group col-md-7">
                                 <label for="equipment-form-make">Hours/Miles:</label>
                                 <input type="number" id="equipment-form-make" name="age" aria-describedby="hoursHelp" value="{{ equipment.age }}" class="form-control" />
-                                <small id="hoursHelp" class="form-text text-muted">Enter either the milage of the number or hours on the equipment.  If neither is applicable, leave the 0.</small>
+                                <small id="hoursHelp" class="form-text text-muted">Enter either the milage or the number of hours on the equipment.  If neither is applicable, leave the 0.</small>
                             </div>
 
                             <div class="form-group col-md-5">

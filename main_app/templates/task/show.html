@@ -33,10 +33,10 @@
                     {{ task.video }}
                 {% endif %}
                 <div>
-                   <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-small button-red">Return to Equipment Page</a> 
-                   <a href="{% url 'task_edit' task_id=task.id %}" class="button button-3d button-small button-red">Edit Task</a>
+                   <a href="{% url 'equipment_show' equipment_id=equipment.id %}" class="button button-3d button-small button-teal">Return to Equipment Page</a> 
+                   <a href="#" data-toggle="modal" data-target="#maintModal" class="button button-3d button-small button-teal">Create Maintanance Record</a>
+                   <a href="{% url 'task_edit' task_id=task.id %}" class="button button-3d button-small button-teal">Edit Task</a>
                    <a href="#" data-toggle="modal" data-target="#deleteTaskModal" class="button button-3d button-small button-red">Delete Task</a>
-                   <a href="#" data-toggle="modal" data-target="#maintModal" class="button button-3d button-small button-red">Create Maintanance Record</a>
                 </div>
             </div>
             {% comment %} Sidebar {% endcomment %}
@@ -48,13 +48,14 @@
                         <h4>Tools</h4>
                         {% if task.tool.count %}
                             <ul>
-                                {% for tool in tool.task.all %}
-                                    <li><div>{{ tool.name}} - {{tool.description}} </div></li>
+                                {% for tool in task.tool.all %}
+                                    <li><div>{{ tool.tool_name}} - {{tool.description}} </div></li>
                                 {% endfor %}
                             </ul>
                         {% else %}
                             <h5>No tools</h5>
                         {% endif %}
+                        <a href="{% url 'tools_consumables' task_id=task.id %}">Add/Remove</a>
                     </div>
 
                     <div class="widget clearfix">
@@ -69,6 +70,7 @@
                         {% else %}
                             <h5>No Consumables</h5>
                         {% endif %}
+                        <a href="{% url 'tools_consumables' task_id=task.id %}">Add/Remove</a>
                     </div>
 
                 </div>

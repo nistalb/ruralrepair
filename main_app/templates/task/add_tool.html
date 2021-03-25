@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section id="page-title" >
+    <div class="container clearfix">
+        <h1>Tools/Consumables for {{ task.task_name }}</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'garage' %}">Garage</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'equipment_show' equipment_id=equipment.id %}">{{ equipment.make }} {{ equipment.model }}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'task_show' task_id=task.id %}">{{ task.task_name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add/Remove</li>
+        </ol>
+    </div>
+</section>
+
+<section id="content">
+    <div class="content-wrap">
+        <div class="container clearfix">
+            <p class="center">Click on an item in the Available column to add it to the task.  Remove a an item from the task by clicking on it.</p>
+            <div class="col_half" >
+                <h3>Tools</h3>
+                <div class="col_half">
+                    <h6>Added:</h6>
+                    {% if task.tool.count %}
+                        <div class="row">
+                            {% for tool in task.tool.all %}
+                                <div class="col-lg-4">
+                                    <a href="{% url 'tool_deassoc' task.id tool.id %}" >{{ tool.tool_name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No Tools</p> 
+                    {% endif %}
+                </div>
+
+                <div class="col_half col_last">
+                    <h6>Available:</h6>
+                    <div>
+                        <div class="row">
+                            {% for tool in available_tools %}
+                                <div class="col-lg-4">
+                                    <a href="{% url 'tool_assoc' task.id tool.id %}" >{{ tool.tool_name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col_half col_last">
+                <h3>Consumables</h3>
+                <div class="col_half">
+                    <h6>Added:</h6>
+                    {% if task.consumable.count %}
+                        <div class="row">
+                            {% for consumable in task.consumable.all %}
+                                <div class="col-lg-4">
+                                    <a href="{% url 'consumable_deassoc' task.id consumable.id %}" >{{ consumable.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No Consumables</p> 
+                    {% endif %}
+                </div>
+
+                <div class="col_half col_last">
+                    <h6>Available:</h6>
+                        <div class="row">
+                            {% for consumable in available_consumables %}
+                                <div class="col-lg-4">
+                                    <a href="{% url 'consumable_assoc' task.id consumable.id %}" >{{ consumable.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="center">
+                <a href="{% url 'task_show' task_id=task.id %}" class="button button-3d button-small button-red">Done</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -117,9 +117,12 @@ def equipment_show(request, equipment_id):
     equipment = Equipment.objects.get(id=equipment_id)
     equipment_form = EquipmentForm(instance=equipment)
     tasks = equipment.task_set.all()
+    task_ids = tasks.values_list('id')
     maintenance = equipment.maint_record_set.all()
+    tools = Tool.objects.filter(task__in = task_ids).distinct()
+    consumables = Consumable.objects.filter(task__in = task_ids).distinct()
     task_form = TaskForm()
-    context = {'equipment': equipment, 'equipment_form': equipment_form, 'task_form': task_form, 'tasks': tasks, 'maintenance': maintenance}
+    context = {'equipment': equipment, 'equipment_form': equipment_form, 'task_form': task_form, 'tasks': tasks, 'maintenance': maintenance, 'tools': tools, 'consumables': consumables}
     return render(request, 'equipment/show.html', context)
 
 def equipment_edit(request, equipment_id):
@@ -143,7 +146,7 @@ def task_create(request, equipment_id):
             task = task_form.save(commit=False)
             task.equipment = equipment
             task.save()
-            return redirect('equipment_show', equipment_id)
+            return redirect('task_edit', task_id=task.id)
 
 def task_show(request, task_id):
     task = Task.objects.get(id=task_id)
@@ -171,6 +174,14 @@ def task_delete(request, task_id):
     task = Task.objects.get(id=task_id)
     task.delete()
     return redirect('equipment_show', equipment_id=task.equipment_id)
+
+def tools_consumables(request, task_id):
+    task = Task.objects.get(id=task_id)
+    equipment = Equipment.objects.get(id=task.equipment_id)
+    available_consumables = Consumable.objects.filter(user_id=request.user.id).exclude(id__in = task.consumable.all().values_list('id'))
+    available_tools = Tool.objects.filter(user_id=request.user.id).exclude(id__in = task.tool.all().values_list('id'))
+    context = {'task': task, 'equipment': equipment, 'available_consumables': available_consumables, 'available_tools': available_tools}
+    return render(request, 'task/add_tool.html', context)
 
 # ==== Maintenance Record ====
 def create_maint_record(request, equipment_id, task_id):
@@ -215,6 +226,14 @@ def tool_delete(reqeust, tool_id):
     Tool.objects.get(id=tool_id).delete()
     return redirect('tool_index')
 
+def tool_assoc(request, task_id, tool_id):
+    Task.objects.get(id=task_id).tool.add(tool_id)
+    return redirect('tools_consumables', task_id=task_id)
+
+def tool_deassoc(request, task_id, tool_id):
+    Task.objects.get(id=task_id).tool.remove(tool_id)
+    return redirect('tools_consumables', task_id=task_id)
+
 # ==== Consumables ====
 def consumable_index(request):
     consumable = Consumable.objects.filter(user_id=request.user.id)
@@ -247,6 +266,14 @@ def consumable_edit (request, consumable_id):
 def consumable_delete(reqeust, consumable_id):
     Consumable.objects.get(id=consumable_id).delete()
     return redirect('consumable_index')
+
+def consumable_assoc(request, task_id, consumable_id):
+    Task.objects.get(id=task_id).consumable.add(consumable_id)
+    return redirect('tools_consumables', task_id=task_id)
+
+def consumable_deassoc(request, task_id, consumable_id):
+    Task.objects.get(id=task_id).consumable.remove(consumable_id)
+    return redirect('tools_consumables', task_id=task_id)
 
 # ==== Photo ====
 def add_photo(request, equipment_id):

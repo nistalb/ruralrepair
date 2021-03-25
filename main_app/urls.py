@@ -28,4 +28,9 @@ urlpatterns = [
     path('task/<int:task_id>/edit', views.task_edit, name='task_edit'),
     path('task/<int:task_id>/delete', views.task_delete, name='task_delete'),
     path('record/<int:equipment_id>/<int:task_id>/create', views.create_maint_record, name='create_maint_record'),
+    path('task/<int:task_id>/tools_consumables', views.tools_consumables, name='tools_consumables'),
+    path('task/<int:task_id>/assoc_tool/<int:tool_id>', views.tool_assoc, name='tool_assoc'),
+    path('task/<int:task_id>/deassoc_tool/<int:tool_id>', views.tool_deassoc, name='tool_deassoc'),
+    path('task/<int:task_id>/assoc_consumable/<int:consumable_id>', views.consumable_assoc, name='consumable_assoc'),
+    path('task/<int:task_id>/deassoc_consumable/<int:consumable_id>', views.consumable_deassoc, name='consumable_deassoc'),
 ]
